@@ -323,10 +323,6 @@ __pycache__/
 # Tabs Studio
 *.tss
 
-# appsettings.Development.json
-appsettings.Development.json
-appsettings.json
-
 # Telerik's JustMock configuration file
 *.jmconfig
 
@@ -365,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# appsettings.json for now, unsure how to deal with connection string
+/appsettings.json
+/appsettings.Development.json
+/appsettings.Development.json
