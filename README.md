@@ -10,6 +10,7 @@ I was ~~abducted~~ chosen into a 2 week "trial by fire" at work on July 23rd, 20
  - [ ] Incorporate a MySQL database and store some random API data.. maybe weather?
  - [ ] Display information from MySQL database on to the website.
  - [ ] Grab information using C#, incorporate lists & enums in some fashion.
+ - [ ] Publish(?) blazor app on Windows Server 2022 in a nice way using Git maybe..
  - [X] Have fun
 
 ### Credits
