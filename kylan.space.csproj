@@ -4,6 +4,11 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>558271f3-bfa5-4e08-9c9f-e15a6da12e2f</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DBLibrary\DBLibrary.csproj" />
+  </ItemGroup>
 
 </Project>

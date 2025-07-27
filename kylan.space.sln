@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36221.1 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kylan.space", "kylan.space.csproj", "{7BBA88C6-60A2-4A2A-8887-0174A593C26A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBLibrary", "..\DBLibrary\DBLibrary.csproj", "{FCD50B48-1B74-4FEA-B0D0-223B3D61A27E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{7BBA88C6-60A2-4A2A-8887-0174A593C26A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7BBA88C6-60A2-4A2A-8887-0174A593C26A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7BBA88C6-60A2-4A2A-8887-0174A593C26A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCD50B48-1B74-4FEA-B0D0-223B3D61A27E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCD50B48-1B74-4FEA-B0D0-223B3D61A27E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCD50B48-1B74-4FEA-B0D0-223B3D61A27E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCD50B48-1B74-4FEA-B0D0-223B3D61A27E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
