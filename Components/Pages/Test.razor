@@ -1,0 +1,73 @@
+﻿@page "/test"
+@rendermode InteractiveServer
+
+@using DBLibrary
+@using kylan.space.Models
+@using Microsoft.Extensions.Configuration
+@inject IDBAccess _data
+@inject IConfiguration _config
+
+
+<section>
+    <div class="container justify-content-center">
+        <div class="pb-5">
+            <button class="btn btn-primary" @onclick="InsertData">Insert</button>
+            <button class="btn btn-warning" @onclick="UpdateData">Update</button>
+        </div>
+        <div>
+            @if (names == null)
+            {
+                <p><em>Loading...</em></p>
+            }
+            else
+            {
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Last Name</th>
+                            <th scope="col">CRUD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                @foreach (var n in names)
+                {
+                    <tr>
+                            <th scope="row">@n.Id</th>
+                            <td>@n.firstName</td>
+                            <td>@n.lastName</td>
+                            <td><i class="fa-solid fa-trash" style="color: #c20000;"></i></td>
+                    </tr>
+                }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+</section>
+
+@code {
+    List<TestingModel> names;
+
+    private async Task InsertData()
+    {
+        string sql = "INSERT INTO testing (firstName, lastName) VALUE (@firstName, @lastName);";
+        await _data.SaveData(sql, new { firstName = "Coke", lastName = "Zero" }, _config.GetConnectionString("default"));
+        await OnInitializedAsync();
+    }
+
+    private async Task UpdateData()
+    {
+        string sql = "UPDATE testing set firstName = @firstName where lastName = @lastName;";
+        await _data.SaveData(sql, new { firstName = "Pepsi", lastName = "Zero" }, _config.GetConnectionString("default"));
+        await OnInitializedAsync();
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string sql = "SELECT * FROM testing";
+        names = await _data.LoadData<TestingModel, dynamic>(sql, new { }, _config.GetConnectionString("default"));
+    }
+
+}
