@@ -1,10 +1,17 @@
+using DBLibrary;
 using kylan.space.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddHttpClient();
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+// Adding an interface is supposedly the "correct" way to do this
+// Singleton = created once for entire web server
+// This is always stored in memory, instead of being created and destroyed multiple times
+builder.Services.AddSingleton<IDBAccess, DBAccess>();
+
 
 var app = builder.Build();
 
