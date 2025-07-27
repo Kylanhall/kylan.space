@@ -2,6 +2,7 @@ using DBLibrary;
 using kylan.space.Components;
 
 var builder = WebApplication.CreateBuilder(args);
+var connectionString = builder.Configuration["Database:ConnectionString"];
 builder.Services.AddHttpClient();
 
 // Add services to the container.
