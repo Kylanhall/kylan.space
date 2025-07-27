@@ -365,3 +365,4 @@ FodyWeavers.xsd
 # appsettings.json for now, unsure how to deal with connection string
 /appsettings.json
 /appsettings.Development.json
+/.filenesting.json
