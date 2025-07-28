@@ -11,8 +11,22 @@
 <section>
     <div class="container justify-content-center">
         <div class="pb-5">
-            <button class="btn btn-primary" @onclick="InsertData">Insert</button>
-            <button class="btn btn-warning" @onclick="UpdateData">Update</button>
+            <!-- <button class="btn btn-primary" @onclick="InsertData">Insert</button>
+            <button class="btn btn-warning" @onclick="UpdateData">Update</button> -->
+        </div>
+        <div class="pb-5">
+            <form @formname="AddName" @onsubmit="InsertData">
+                <div class="form-group pb-2">
+                    <label for="Firstname">First Name</label>
+                    <input @bind-value="submitFirstName" type="text" class="form-control" id="FirstName" placeholder="Enter First Name" />
+                    <small id="FirstNameHelp" class="form-text text-muted">Type in your first name...</small>
+                </div>
+                <div class="form-group">
+                    <label for="LastName">Last Name</label>
+                    <input @bind-value="submitLastName" type="text" class="form-control" id="LastName" placeholder="Enter Last Name" />
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
         </div>
         <div>
             @if (names == null)
@@ -50,10 +64,13 @@
 @code {
     List<TestingModel> names;
 
+    private string submitFirstName;
+    private string submitLastName;
+
     private async Task InsertData()
     {
         string sql = "INSERT INTO testing (firstName, lastName) VALUE (@firstName, @lastName);";
-        await _data.SaveData(sql, new { firstName = "Coke", lastName = "Zero" }, _config["Database:ConnectionString"]);
+        await _data.SaveData(sql, new { firstName = submitFirstName, lastName = submitLastName }, _config["Database:ConnectionString"]);
         await OnInitializedAsync();
     }
 
