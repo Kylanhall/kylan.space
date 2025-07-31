@@ -16,6 +16,11 @@ a, .btn-link {
     max-width: 8.5rem;
 }
 
+.logo-nav {
+    max-width: 70px;
+    padding: 5px;
+}
+
 .poppins {
     font-family: Poppins;
 }
