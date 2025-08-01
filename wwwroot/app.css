@@ -1,3 +1,5 @@
+@import url("https://use.typekit.net/nyq1nrq.css");
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -22,7 +24,15 @@ a, .btn-link {
 }
 
 .poppins {
-    font-family: Poppins;
+    font-family: "poppins", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.poppins-bold {
+    font-family: "poppins", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
@@ -61,4 +71,15 @@ h1:focus {
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
+}
+
+@media (max-width: 640px) {
+    .small-view > a > p {
+        padding-top: 6px;
+        margin-bottom: 5px;
+    }
+
+    .small-view > ol > li {
+        padding-left: 20px;
+    }
 }
