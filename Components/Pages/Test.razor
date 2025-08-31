@@ -25,7 +25,9 @@
                     <label for="LastName">Last Name</label>
                     <input @bind-value="submitLastName" type="text" class="form-control" id="LastName" placeholder="Enter Last Name" />
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="pt-2">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
             </form>
         </div>
         <div>
@@ -64,8 +66,8 @@
 @code {
     List<TestingModel> names;
 
-    private string submitFirstName;
-    private string submitLastName;
+    private string? submitFirstName;
+    private string? submitLastName;
 
     private async Task InsertData()
     {
