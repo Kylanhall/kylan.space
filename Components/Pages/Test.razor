@@ -2,8 +2,11 @@
 @rendermode InteractiveServer
 
 @using DBLibrary
+@using System.ComponentModel.DataAnnotations
 @using kylan.space.Models
 @using Microsoft.Extensions.Configuration
+@using BlazorCaptcha
+
 @inject IDBAccess _data
 @inject IConfiguration _config
 
@@ -15,20 +18,37 @@
             <button class="btn btn-warning" @onclick="UpdateData">Update</button> -->
         </div>
         <div class="pb-5">
-            <form @formname="AddName" @onsubmit="InsertData">
-                <div class="form-group pb-2">
-                    <label for="Firstname">First Name</label>
-                    <input @bind-value="submitFirstName" type="text" class="form-control" id="FirstName" placeholder="Enter First Name" />
-                    <small id="FirstNameHelp" class="form-text text-muted">Type in your first name...</small>
+            <EditForm FormName="formName" Model="@model" OnValidSubmit="InsertData">
+                <DataAnnotationsValidator />
+                <div class="row pb-4">
+                    <div class="col-md-4">
+                        <label for="Firstname">First Name</label>
+                        <input @bind-value="model.firstName" type="text" class="form-control" id="FirstName" placeholder="Enter First Name" />
+                        <ValidationMessage For="() => model.firstName" />
+                    </div>
+                    <div class="col-md-4">
+                        <label for="LastName">Last Name</label>
+                        <input @bind-value="model.lastName" type="text" class="form-control" id="LastName" placeholder="Enter Last Name" />
+                        <ValidationMessage For="() => model.lastName" />
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="LastName">Last Name</label>
-                    <input @bind-value="submitLastName" type="text" class="form-control" id="LastName" placeholder="Enter Last Name" />
+                <div class="row">
+                    <div class="col-md-3">
+                        <Captcha @bind-CaptchaWord="model.captcha" CharNumber="5" />
+                    </div>
                 </div>
-                <div class="pt-2">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                <div class="row pt-1">
+                    <div class="col-md-3">
+                        <input @bind-value="model.captchaResponse" type="text" class="form-control" id="captchaResponse" />
+                        <ValidationMessage For="() => model.captchaResponse" />
+                    </div>
                 </div>
-            </form>
+                <div class="row pt-1">
+                    <div class="col-md-3">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </div>
+            </EditForm>
         </div>
         <div>
             @if (names == null)
@@ -40,21 +60,21 @@
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th scope="col">ID</th>
+                            <th scope="col">Row #</th>
                             <th scope="col">First Name</th>
                             <th scope="col">Last Name</th>
-                            <th scope="col">CRUD</th>
                         </tr>
                     </thead>
                     <tbody>
+                @{ var x = 1; }
                 @foreach (var n in names)
                 {
                     <tr>
-                            <th scope="row">@n.Id</th>
+                            <th scope="row">@x</th>
                             <td>@n.firstName</td>
                             <td>@n.lastName</td>
-                            <td><i class="fa-solid fa-trash" style="color: #c20000;"></i></td>
                     </tr>
+                    x++;
                 }
                     </tbody>
                 </table>
@@ -65,14 +85,13 @@
 
 @code {
     List<TestingModel> names;
-
-    private string? submitFirstName;
-    private string? submitLastName;
+    private EditContext? editContext;
+    TestingModel model = new TestingModel();
 
     private async Task InsertData()
     {
         string sql = "INSERT INTO testing (firstName, lastName) VALUE (@firstName, @lastName);";
-        await _data.SaveData(sql, new { firstName = submitFirstName, lastName = submitLastName }, _config["Database:ConnectionString"]);
+        await _data.SaveData(sql, new { firstName = model.firstName, lastName = model.lastName }, _config["Database:ConnectionString"]);
         await OnInitializedAsync();
     }
 
@@ -87,6 +106,18 @@
     {
         string sql = "SELECT * FROM testing";
         names = await _data.LoadData<TestingModel, dynamic>(sql, new { }, _config["Database:ConnectionString"]);
+
+        model.captcha = BlazorCaptcha.Commun.Tools.GetCaptchaWord(5);
+
+        editContext = new(model);
+        editContext.OnValidationRequested += HandleValidationRequested;
+
+    }
+
+    private void HandleValidationRequested(object? sender, ValidationRequestedEventArgs args)
+    {
+        // TODO: actually handle the validation request
+        Console.WriteLine("Just something here for now");
     }
 
 }
